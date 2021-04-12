@@ -7,7 +7,6 @@ import lock from '../login/lock.png';
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import {useHistory} from 'react-router'
-// import Dashboard from '../dashboard/Dashboard'
 
 const Login = ({login,loggedIn}) => {
   const history=useHistory();
@@ -40,6 +39,7 @@ const Login = ({login,loggedIn}) => {
           );
     
           if (res.status === 200) {
+            console.log(res);
             if(username==='elon'||username==='91Social')
               {
                   // console.log(username);
@@ -53,13 +53,6 @@ const Login = ({login,loggedIn}) => {
     return (
         <div className="login-container">
             {rendercontent()}
-            {/* <div className="card">
-                <p>
-                    <img src={lock} alt=""></img>
-                    Welcome!<br />
-                    Glad to have you back
-                    </p>
-            </div> */}
                 <div className="loginbox">
                     <span className="login">
                         Login
@@ -71,5 +64,4 @@ const Login = ({login,loggedIn}) => {
             </div>
     );
 }
-
 export default Login;

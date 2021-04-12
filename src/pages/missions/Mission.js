@@ -1,37 +1,30 @@
 import { React, useState, useEffect } from 'react';
 import axios from 'axios';
-import './Mission.scss'
+import './Mission.scss';
+import { fetchMissions } from '../../actions';
+import Navbar from '../../components/navbar/Navbar';
 
 const Mission = () => {
-    const [Data, setData] = useState([])
+    const [missions, setMissions] = useState([])
 
-    useEffect(() => {
-        axios.get('https://api.spacexdata.com/v3/missions')
-            .then(res => {
-                console.log(res.data.slice(0, 3));
-                setData(res.data.slice(0, 3))
-            })
-            .catch(err => {
-                console.log(err);
-            })
+    useEffect(async () => {
+        const data = await fetchMissions();
+        setMissions(data);
     }, [])
 
-    return Data.map((ele) =>
-    // (<div className={ele.mission_name}>
-    //     <h1 className={"animate"}>
-    //         {ele.mission_name}
-    //         {ele.manufactures}
-    //         {ele.wikipedia}
-    //         {ele.description}
-    //     </h1>
-    // </div>)
-     (<div className={ele.mission_name}>
-     <div>{ele.mission_name}</div>
-     <div>{ele.manufactures}</div>
-     <div>{ele.wikipedia}</div>
-     <div>{ele.description}</div>
- </div>)
-    );
+    return (
+        <div>
+            <Navbar />
+            {missions.map((mission) =>
+                <div className={mission.mission_name}>
+                    <div>{mission.mission_name}</div>
+                    <div>{mission.manufactures}</div>
+                    <div>{mission.wikipedia}</div>
+                    <div>{mission.description}</div>
+                </div>
+            )}
+        </div>
+    )
 }
 
 export default Mission;
