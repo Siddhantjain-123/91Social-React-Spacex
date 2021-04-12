@@ -1,0 +1,36 @@
+$wrapper-max-width: 1000px;
+
+.inputfields-wrapper {
+  align-content: center;
+  border-bottom: 1.5px solid black;
+  border-color: black;
+  color: white;
+  align-items: center;
+  display: flex;
+  max-width: $wrapper-max-width;
+  margin-bottom: 30px;
+  width: fit-content;
+}
+
+input {
+  color: white;
+  line-height: 35px;
+  align-content: center;
+  background-color: transparent;
+  border: none;
+  padding-bottom: 2px;
+  padding-top: 5px;
+  background-position: 7px 7px;
+  background-repeat: no-repeat;
+  display: flex;
+  font-size: 120%;
+}
+input::placeholder {
+  text-align: justify;
+  color: white;
+}
+img {
+  background-repeat: no-repeat;
+  padding: 1px;
+  display: flex;
+}
