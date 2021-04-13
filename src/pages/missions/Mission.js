@@ -1,21 +1,23 @@
 import { React, useState, useEffect } from 'react';
 import axios from 'axios';
 import './Mission.scss';
-import { fetchMissions } from '../../actions';
+import { getMissions } from '../../store/actions/missions';
 import Navbar from '../../components/navbar/Navbar';
+import { connect } from 'react-redux';
 
-const Mission = () => {
-    const [missions, setMissions] = useState([])
+
+const Mission = ({
+    user, missions, getMissions
+}) => {
 
     useEffect(async () => {
-        const data = await fetchMissions();
-        setMissions(data);
+        getMissions();
     }, [])
 
     return (
         <div>
             <Navbar />
-            {missions.map((mission) =>
+            {missions && missions.map((mission) =>
                 <div className={mission.mission_name}>
                     <div>{mission.mission_name}</div>
                     <div>{mission.manufactures}</div>
@@ -27,4 +29,15 @@ const Mission = () => {
     )
 }
 
-export default Mission;
+const mapStateToProps = (state) => {
+    return {
+      user: state.user,
+      missions: state.missions.data
+    }
+  }
+  
+  const mapDispatchToProps = {
+    getMissions
+  };
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Mission);

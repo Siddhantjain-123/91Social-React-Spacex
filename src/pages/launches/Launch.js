@@ -1,31 +1,38 @@
 import { React, useState, useEffect } from 'react';
 import './Launch.scss'
 import Navbar from '../../components/navbar/Navbar'
-import { fetchLaunches } from '../../actions';
+import { getLaunches } from '../../store/actions/launch';
+import { connect } from 'react-redux'
 
-const Launch = () => {
-    const [Data, setData] = useState([])
+const Launch = ({ launches, getLaunches }) => {
 
-    useEffect(async () => {
-        const data = await fetchLaunches();
-        setData(data);
-    }, [])
+  useEffect(async () => {
+    getLaunches();
+  }, [])
 
-    return (
-        <div>
-            <Navbar />
-            {Data.map((ele) =>
-                <div className={ele.mission_name}>
-                    <p className={"animate"}>
-                        {ele.mission_name}
-                        {ele.launch_year}
-                        {ele.details}
-                        {ele.launch_success}
-                    </p>
-                </div>
-             ) }
+  return (
+    <div>
+      <Navbar />
+      {launches.map((ele) =>
+        <div className={ele.mission_name}>
+          <div>{ele.mission_name}</div>
+          <div>{ele.launch_year}</div>
+          <div>{ele.details}</div>
+          <div>{ele.launch_success}</div>
         </div>
-        )
+      )}
+    </div>
+  )
+}
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+    launches: state.launches.data
+  }
 }
 
-export default Launch;
+const mapDispatchToProps = {
+  getLaunches
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Launch);
