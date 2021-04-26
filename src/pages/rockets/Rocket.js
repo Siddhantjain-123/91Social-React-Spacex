@@ -11,15 +11,17 @@ const Rocket = ({ rockets, getRockets }) => {
         getRockets();
     }, [])
 
-    return (<div>
+    return (<div className="parent">
         <Navbar />
         { rockets &&
             rockets.map((ele) =>
                 <div className="first-rocket">
+                  <div classname="wrapper-content">
                     <div>{ele.rocket_name}</div>
                     <div>{ele.rocket_type}</div>
                     <div>{ele.wikipedia}</div>
                     <div>{ele.description}</div>
+                    </div>
                 </div>)}
     </div>
     );
